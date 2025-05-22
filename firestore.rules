@@ -1,0 +1,11 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // WARNING: TEMPORARILY ALLOWING ALL READS AND WRITES FOR DEBUGGING.
+    // THIS IS INSECURE AND MUST BE REVERTED TO PROPER RULES.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

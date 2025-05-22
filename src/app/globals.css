@@ -1,0 +1,200 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  
+}
+.spacea{
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+@layer base {
+  :root {
+    --background: 280 60% 97%; /* Very light lavender/off-white */
+    --foreground: 280 20% 25%; /* Dark purple-gray */
+
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 280 20% 25%; /* Dark purple-gray */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 280 20% 25%;
+
+    --primary: 283 54% 57%; /* Purple */
+    --primary-foreground: 283 100% 97%; /* Very light purple/white for text on primary */
+
+    --secondary: 280 40% 92%; /* Light purple */
+    --secondary-foreground: 280 20% 25%; /* Dark purple-gray */
+
+    --muted: 280 40% 94%; /* Lighter purple */
+    --muted-foreground: 280 20% 50%; /* Medium purple-gray */
+
+    --accent: 35 92% 62%; /* Gold/Orange */
+    --accent-foreground: 35 100% 97%; /* Light color for text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 280 30% 85%;
+    --input: 280 30% 88%;
+    --ring: 283 54% 57%; /* Primary color for focus rings */
+
+    --radius: 0.5rem;
+
+    /* Custom Sidebar Theme */
+    --sidebar-background: 280 30% 18%; /* Dark Purple */
+    --sidebar-foreground: 280 40% 90%; /* Light text for dark sidebar */
+    --sidebar-primary: 283 54% 70%; /* Brighter purple for active items */
+    --sidebar-primary-foreground: 0 0% 100%; /* White */
+    --sidebar-accent: 280 30% 28%; /* Hover color for sidebar items */
+    --sidebar-accent-foreground: 280 40% 95%;
+    --sidebar-border: 280 30% 23%;
+    --sidebar-ring: 283 54% 57%;
+
+    --chart-1: 283 50% 60%; /* Shade of primary purple */
+    --chart-2: 300 50% 70%; /* Lighter purple/magenta */
+    --chart-3: 260 50% 65%; /* Indigo/blue-purple */
+    --chart-4: 35 80% 65%;  /* Shade of accent gold/orange */
+    --chart-5: 210 50% 60%; /* A contrasting cool blue */
+  }
+
+  .dark {
+    --background: 280 20% 15%;
+    --foreground: 280 40% 95%;
+
+    --card: 280 20% 15%;
+    --card-foreground: 280 40% 95%;
+
+    --popover: 280 20% 15%;
+    --popover-foreground: 280 40% 95%;
+
+    --primary: 283 54% 62%; /* Slightly lighter purple for dark mode */
+    --primary-foreground: 283 100% 97%;
+
+    --secondary: 280 25% 25%;
+    --secondary-foreground: 280 40% 95%;
+
+    --muted: 280 25% 22%;
+    --muted-foreground: 280 30% 75%;
+
+    --accent: 35 92% 65%; /* Slightly lighter accent for dark mode */
+    --accent-foreground: 35 100% 97%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 280 25% 30%;
+    --input: 280 25% 30%;
+    --ring: 283 54% 62%;
+
+    /* Dark Sidebar Theme */
+    --sidebar-background: 280 25% 10%;
+    --sidebar-foreground: 280 40% 90%;
+    --sidebar-primary: 283 54% 70%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 280 30% 20%;
+    --sidebar-accent-foreground: 280 40% 95%;
+    --sidebar-border: 280 30% 15%;
+    --sidebar-ring: 283 54% 70%;
+    
+    --chart-1: 283 60% 70%;
+    --chart-2: 300 60% 75%;
+    --chart-3: 260 60% 70%;
+    --chart-4: 35 85% 70%;
+    --chart-5: 210 60% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Marquee styles */
+.marquee-container-wrapper {
+  flex-grow: 1; /* Takes available horizontal space next to the icon */
+  overflow: hidden; /* Essential: Hides the content that moves out of bounds */
+  white-space: nowrap; /* Ensures the inner content stays in a single line */
+}
+
+.marquee-content {
+  display: inline-block; /* Allows transform to work correctly and respects white-space */
+  animation: marquee-scroll-animation 25s linear infinite; /* Adjust duration based on preference */
+  white-space: nowrap; /* Ensures child spans stay on one line */
+}
+
+.marquee-content > span {
+  display: inline-block; /* Ensures spacing (like ml-12) between duplicated content is respected */
+}
+
+@keyframes marquee-scroll-animation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%); /* Scrolls exactly one instance of the content width, creating a seamless loop with duplicated content */
+  }
+}
+
+/* Print-specific styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white !important; /* Ensure body background is white for print */
+  }
+
+  /* Hide elements marked with print:hidden (Tailwind class) */
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  /* Ensure the printable area is visible and styled for printing */
+  .report-card-printable-area {
+    position: static !important; /* Let it flow naturally on the print page */
+    width: 100% !important;
+    margin: 0 auto !important; /* Center it if it's not taking full width by default */
+    padding: 20px !important; 
+    border: 1px solid #ccc !important; /* Optional: add a border for the printout frame */
+    box-shadow: none !important;
+    page-break-inside: avoid; /* Attempt to keep the card on one page */
+    background-color: white !important;
+  }
+
+  /* Ensure all children of the printable area are visible */
+  .report-card-printable-area * {
+    visibility: visible !important;
+    color: black !important; /* Ensure text is black for print */
+    background-color: transparent !important; /* Avoid unexpected backgrounds */
+  }
+
+  /* Styles for table within the printable area for better print layout */
+  .report-card-printable-area table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .report-card-printable-area th,
+  .report-card-printable-area td {
+    border: 1px solid #ddd !important; /* Light gray border for table cells */
+    padding: 8px;
+    text-align: left;
+  }
+  .report-card-printable-area th {
+    background-color: #f2f2f2 !important; /* Light gray background for table headers */
+  }
+   /* Ensure elements specifically for print are shown */
+  .print-only {
+    display: block !important;
+  }
+}
+
+.print-only {
+  display: none; /* Hidden by default, shown only on print */
+}
